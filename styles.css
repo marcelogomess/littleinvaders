@@ -792,6 +792,56 @@ body {
     border-color: var(--accent-green);
 }
 
+.carousel-cta {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.btn-big {
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-family: var(--font-pixel);
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: 4px solid;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+    min-width: 300px;
+    text-align: center;
+    animation: big-button-glow 2s ease-in-out infinite;
+}
+
+@keyframes big-button-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.5);
+    }
+}
+
+.btn-big:hover {
+    background: var(--accent-green);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+    box-shadow: 
+        0 0 30px var(--accent-green),
+        inset 0 0 30px rgba(0, 255, 0, 0.3);
+    transform: scale(1.05);
+    animation: none;
+}
+
+.btn-big:active {
+    transform: scale(0.98);
+}
+
 /* ============================================
    Footer
    ============================================ */
@@ -1010,6 +1060,13 @@ body {
     .carousel-slide {
         padding: var(--spacing-md);
     }
+    
+    .btn-big {
+        font-size: 1.2rem;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        min-width: 250px;
+        letter-spacing: 2px;
+    }
 }
 
 /* Small Mobile */
@@ -1066,5 +1123,13 @@ body {
     .carousel-image {
         max-width: 150px;
         max-height: 150px;
+    }
+    
+    .btn-big {
+        font-size: 1rem;
+        padding: var(--spacing-xs) var(--spacing-md);
+        min-width: 200px;
+        letter-spacing: 1px;
+        border-width: 3px;
     }
 }
