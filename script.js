@@ -129,15 +129,31 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// Copy Contract Address to Clipboard
+// Copy Address to Clipboard (Contract & Wallet Addresses)
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    const copyBtn = document.querySelector('.copy-btn');
-    const contractAddress = document.querySelector('#contractAddress code');
+    const copyButtons = document.querySelectorAll('.copy-btn');
     
-    if (copyBtn && contractAddress) {
+    copyButtons.forEach(function(copyBtn) {
         copyBtn.addEventListener('click', function() {
-            const address = contractAddress.textContent;
+            let address;
+            
+            // Check if button has data-address attribute (wallet addresses)
+            if (this.hasAttribute('data-address')) {
+                address = this.getAttribute('data-address');
+            } else {
+                // Fallback to finding the code element nearby (contract address)
+                const codeElement = this.closest('.contract-address')?.querySelector('code') || 
+                                   this.closest('.wallet-address')?.querySelector('code');
+                if (codeElement) {
+                    address = codeElement.textContent;
+                }
+            }
+            
+            if (!address) {
+                console.error('No address found to copy');
+                return;
+            }
             
             // Use Clipboard API if available
             if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -155,18 +171,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 2000);
                 }).catch(function(err) {
                     console.error('Failed to copy:', err);
-                    fallbackCopy(address);
+                    fallbackCopy(address, copyBtn);
                 });
             } else {
                 // Fallback for older browsers
-                fallbackCopy(address);
+                fallbackCopy(address, copyBtn);
             }
         });
-    }
+    });
 });
 
 // Fallback copy method for older browsers
-function fallbackCopy(text) {
+function fallbackCopy(text, copyBtn) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
@@ -178,7 +194,6 @@ function fallbackCopy(text) {
     
     try {
         document.execCommand('copy');
-        const copyBtn = document.querySelector('.copy-btn');
         if (copyBtn) {
             const originalText = copyBtn.textContent;
             copyBtn.textContent = '✓';

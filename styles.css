@@ -658,6 +658,86 @@ body {
 }
 
 /* ============================================
+   Support Section
+   ============================================ */
+.support-section {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    border: var(--border-pixel) var(--accent-green);
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.support-title {
+    font-family: var(--font-pixel);
+    font-size: 1.5rem;
+    color: var(--accent-green);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--accent-green);
+}
+
+.support-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.wallet-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.wallet-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--accent-green);
+    transition: var(--transition-normal);
+}
+
+.wallet-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+    border-color: var(--accent-cyan);
+    transform: translateX(5px);
+}
+
+.wallet-label {
+    font-family: var(--font-pixel);
+    font-size: 1rem;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.wallet-address {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.wallet-address code {
+    font-family: var(--font-pixel);
+    font-size: 0.875rem;
+    color: var(--accent-cyan);
+    background: rgba(0, 0, 0, 0.5);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--accent-cyan);
+    word-break: break-all;
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ============================================
    Carousel Section
    ============================================ */
 .carousel-section {
@@ -1027,6 +1107,32 @@ body {
     
     .contract-address code {
         font-size: 0.75rem;
+    }
+    
+    .support-section {
+        padding: var(--spacing-sm);
+    }
+    
+    .support-title {
+        font-size: 1.25rem;
+    }
+    
+    .support-description {
+        font-size: 1.125rem;
+    }
+    
+    .wallet-label {
+        font-size: 0.875rem;
+    }
+    
+    .wallet-address {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .wallet-address code {
+        font-size: 0.75rem;
+        width: 100%;
     }
     
     .invader-sprite {
