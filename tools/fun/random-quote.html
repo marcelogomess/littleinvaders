@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free random quote generator. Get random inspirational quotes online.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="Random Quote Generator – Free Online Tool | Little Invaders">
+    <link rel="canonical" href="https://littleinvaders.com/tools/fun/random-quote.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Random Quote Generator – Free Online Tool | Little Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/tools.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRKPP37EQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRKPP37EQ0');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="../../index.html" class="nav-logo">LITTLE INVADERS</a>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="../../index.html#traits" class="nav-link">Traits</a>
+                <a href="../../index.html#roadmap" class="nav-link">Roadmap</a>
+                <a href="../../index.html#social" class="nav-link">Links</a>
+                <a href="../index.html" class="nav-link">Tools</a>
+                <a href="../../index.html#support" class="nav-link">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tool-page">
+        <div class="tool-header">
+            <h1 class="tool-title">Random Quote Generator</h1>
+            <p class="tool-description">Get random inspirational quotes</p>
+        </div>
+
+        <div class="tool-main">
+            <div class="tool-container">
+                <form id="quote-form" class="tool-form">
+                    <div class="tool-form-group">
+                        <label for="category" class="tool-label">Category</label>
+                        <select id="category" class="tool-select">
+                            <option value="all">All</option>
+                            <option value="inspirational">Inspirational</option>
+                            <option value="tech">Tech</option>
+                            <option value="life">Life</option>
+                        </select>
+                    </div>
+
+                    <div class="tool-btn-group">
+                        <button type="button" class="tool-btn" id="generate-btn">Generate Quote</button>
+                        <button type="button" class="tool-btn tool-btn-secondary" id="reset-btn">Reset</button>
+                    </div>
+
+                    <div id="feedback" class="tool-feedback"></div>
+
+                    <div class="tool-form-group" style="margin-top: var(--spacing-md);">
+                        <label class="tool-label">Quote</label>
+                        <div id="quote-output" class="tool-output tool-output-empty" style="padding: var(--spacing-md); min-height: 150px; font-style: italic; font-size: 1.25rem;"></div>
+                        <div id="author-output" style="text-align: right; margin-top: var(--spacing-sm); color: var(--text-muted);"></div>
+                        <button type="button" class="tool-btn tool-btn-secondary" id="copy-btn" style="margin-top: var(--spacing-sm); width: 100%; display: none;">Copy Quote</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://twitter.com/little_invaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow us on Twitter">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="https://opensea.io/collection/littleinvaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="View collection on OpenSea">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2026 Little Invaders. All rights reserved.
+            </p>
+            <p class="footer-web3">Built on Web3</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/tools-core.js"></script>
+    <script src="../../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const category = document.getElementById('category');
+            const quoteOutput = document.getElementById('quote-output');
+            const authorOutput = document.getElementById('author-output');
+            const copyBtn = document.getElementById('copy-btn');
+            const generateBtn = document.getElementById('generate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedback = document.getElementById('feedback');
+
+            const quotes = {
+                all: [
+                    { text: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
+                    { text: 'Innovation distinguishes between a leader and a follower.', author: 'Steve Jobs' },
+                    { text: 'Code is like humor. When you have to explain it, it\'s bad.', author: 'Cory House' }
+                ],
+                inspirational: [
+                    { text: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
+                    { text: 'Believe you can and you\'re halfway there.', author: 'Theodore Roosevelt' }
+                ],
+                tech: [
+                    { text: 'Code is like humor. When you have to explain it, it\'s bad.', author: 'Cory House' },
+                    { text: 'First, solve the problem. Then, write the code.', author: 'John Johnson' }
+                ],
+                life: [
+                    { text: 'Life is what happens to you while you\'re busy making other plans.', author: 'John Lennon' }
+                ]
+            };
+
+            generateBtn.addEventListener('click', function() {
+                const cat = category.value;
+                const quoteList = quotes[cat] || quotes.all;
+                const quote = quoteList[Math.floor(Math.random() * quoteList.length)];
+                
+                quoteOutput.textContent = '"' + quote.text + '"';
+                authorOutput.textContent = '— ' + quote.author;
+                quoteOutput.classList.remove('tool-output-empty');
+                copyBtn.style.display = 'block';
+                showFeedback('Quote generated!', 'success');
+            });
+
+            copyBtn.addEventListener('click', function() {
+                const text = quoteOutput.textContent + ' ' + authorOutput.textContent;
+                copyToClipboard(text, copyBtn);
+            });
+
+            resetBtn.addEventListener('click', function() {
+                quoteOutput.textContent = '';
+                authorOutput.textContent = '';
+                quoteOutput.classList.add('tool-output-empty');
+                copyBtn.style.display = 'none';
+            });
+
+            function showFeedback(message, type) {
+                feedback.className = 'tool-feedback ' + type + ' show';
+                feedback.textContent = message;
+                setTimeout(function() { feedback.classList.remove('show'); }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

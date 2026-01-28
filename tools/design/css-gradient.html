@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free CSS gradient generator. Create CSS gradients with live preview online.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="CSS Gradient Generator – Free Online Tool | Little Invaders">
+    <link rel="canonical" href="https://littleinvaders.com/tools/design/css-gradient.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>CSS Gradient Generator – Free Online Tool | Little Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/tools.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRKPP37EQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRKPP37EQ0');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="../../index.html" class="nav-logo">LITTLE INVADERS</a>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="../../index.html#traits" class="nav-link">Traits</a>
+                <a href="../../index.html#roadmap" class="nav-link">Roadmap</a>
+                <a href="../../index.html#social" class="nav-link">Links</a>
+                <a href="../index.html" class="nav-link">Tools</a>
+                <a href="../../index.html#support" class="nav-link">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tool-page">
+        <div class="tool-header">
+            <h1 class="tool-title">CSS Gradient Generator</h1>
+            <p class="tool-description">Create CSS gradients with live preview</p>
+        </div>
+
+        <div class="tool-main">
+            <div class="tool-container">
+                <form id="gradient-form" class="tool-form">
+                    <div class="tool-form-group">
+                        <label for="color1" class="tool-label">Start Color</label>
+                        <input type="color" id="color1" class="tool-input" value="#00ffff" style="height: 50px;">
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="color2" class="tool-label">End Color</label>
+                        <input type="color" id="color2" class="tool-input" value="#8b00ff" style="height: 50px;">
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="direction" class="tool-label">Direction</label>
+                        <select id="direction" class="tool-select">
+                            <option value="to right">To Right</option>
+                            <option value="to left">To Left</option>
+                            <option value="to bottom">To Bottom</option>
+                            <option value="to top">To Top</option>
+                            <option value="to bottom right">To Bottom Right</option>
+                            <option value="to bottom left">To Bottom Left</option>
+                            <option value="to top right">To Top Right</option>
+                            <option value="to top left">To Top Left</option>
+                            <option value="45deg">45deg</option>
+                            <option value="90deg">90deg</option>
+                            <option value="135deg">135deg</option>
+                            <option value="180deg">180deg</option>
+                        </select>
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label class="tool-label">Preview</label>
+                        <div id="gradient-preview" class="tool-preview" style="min-height: 200px;"></div>
+                    </div>
+
+                    <div class="tool-btn-group">
+                        <button type="button" class="tool-btn" id="update-btn">Update Preview</button>
+                        <button type="button" class="tool-btn tool-btn-secondary" id="reset-btn">Reset</button>
+                    </div>
+
+                    <div id="feedback" class="tool-feedback"></div>
+
+                    <div class="tool-form-group" style="margin-top: var(--spacing-md);">
+                        <label for="css-output" class="tool-label">
+                            CSS Code
+                            <button type="button" class="tool-copy-btn" data-copy="css-output" title="Copy">📋</button>
+                        </label>
+                        <textarea id="css-output" class="tool-textarea tool-output tool-output-empty" readonly></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://twitter.com/little_invaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow us on Twitter">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="https://opensea.io/collection/littleinvaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="View collection on OpenSea">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2026 Little Invaders. All rights reserved.
+            </p>
+            <p class="footer-web3">Built on Web3</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/tools-core.js"></script>
+    <script src="../../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const color1 = document.getElementById('color1');
+            const color2 = document.getElementById('color2');
+            const direction = document.getElementById('direction');
+            const preview = document.getElementById('gradient-preview');
+            const cssOutput = document.getElementById('css-output');
+            const updateBtn = document.getElementById('update-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedback = document.getElementById('feedback');
+
+            function updateGradient() {
+                const dir = direction.value;
+                const css = `linear-gradient(${dir}, ${color1.value}, ${color2.value})`;
+                preview.style.background = css;
+                cssOutput.value = `background: ${css};`;
+                cssOutput.classList.remove('tool-output-empty');
+            }
+
+            [color1, color2, direction].forEach(el => {
+                el.addEventListener('input', updateGradient);
+            });
+
+            updateBtn.addEventListener('click', function() {
+                updateGradient();
+                showFeedback('Gradient updated!', 'success');
+            });
+
+            resetBtn.addEventListener('click', function() {
+                resetForm('gradient-form');
+                color1.value = '#00ffff';
+                color2.value = '#8b00ff';
+                direction.value = 'to right';
+                updateGradient();
+            });
+
+            function showFeedback(message, type) {
+                feedback.className = `tool-feedback ${type} show`;
+                feedback.textContent = message;
+                setTimeout(() => feedback.classList.remove('show'), 3000);
+            }
+
+            updateGradient();
+        });
+    </script>
+</body>
+</html>

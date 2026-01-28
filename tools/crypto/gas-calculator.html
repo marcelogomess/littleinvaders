@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Ethereum gas fee calculator. Calculate gas fees offline.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="Gas Fee Calculator – Free Online Tool | Little Invaders">
+    <link rel="canonical" href="https://littleinvaders.com/tools/crypto/gas-calculator.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Gas Fee Calculator – Free Online Tool | Little Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/tools.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRKPP37EQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRKPP37EQ0');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="../../index.html" class="nav-logo">LITTLE INVADERS</a>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="../../index.html#traits" class="nav-link">Traits</a>
+                <a href="../../index.html#roadmap" class="nav-link">Roadmap</a>
+                <a href="../../index.html#social" class="nav-link">Links</a>
+                <a href="../index.html" class="nav-link">Tools</a>
+                <a href="../../index.html#support" class="nav-link">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tool-page">
+        <div class="tool-header">
+            <h1 class="tool-title">Gas Fee Calculator</h1>
+            <p class="tool-description">Calculate Ethereum gas fees</p>
+        </div>
+
+        <div class="tool-main">
+            <div class="tool-container">
+                <form id="gas-form" class="tool-form">
+                    <div class="tool-form-group">
+                        <label for="gas-limit" class="tool-label">Gas Limit</label>
+                        <input type="number" id="gas-limit" class="tool-input" value="21000" min="1">
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="gas-price" class="tool-label">Gas Price (Gwei)</label>
+                        <input type="number" id="gas-price" class="tool-input" value="20" min="0" step="0.1">
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="network" class="tool-label">Network</label>
+                        <select id="network" class="tool-select">
+                            <option value="ethereum">Ethereum Mainnet</option>
+                            <option value="polygon">Polygon</option>
+                            <option value="arbitrum">Arbitrum</option>
+                            <option value="optimism">Optimism</option>
+                        </select>
+                    </div>
+
+                    <div class="tool-btn-group">
+                        <button type="button" class="tool-btn" id="calculate-btn">Calculate</button>
+                        <button type="button" class="tool-btn tool-btn-secondary" id="reset-btn">Reset</button>
+                    </div>
+
+                    <div id="feedback" class="tool-feedback"></div>
+
+                    <div class="tool-form-group" style="margin-top: var(--spacing-md);">
+                        <label class="tool-label">Gas Fee</label>
+                        <div style="background: rgba(0, 0, 0, 0.5); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md);">
+                            <div style="margin-bottom: var(--spacing-sm);">
+                                <strong style="color: var(--accent-cyan);">Total Gas:</strong>
+                                <span id="total-gas" class="tool-output-empty" style="margin-left: var(--spacing-sm);"></span>
+                            </div>
+                            <div style="margin-bottom: var(--spacing-sm);">
+                                <strong style="color: var(--accent-green);">Cost (ETH):</strong>
+                                <span id="cost-eth" class="tool-output-empty" style="margin-left: var(--spacing-sm);"></span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--accent-purple);">Cost (USD):</strong>
+                                <span id="cost-usd" class="tool-output-empty" style="margin-left: var(--spacing-sm);"></span>
+                                <span style="color: var(--text-muted); font-size: 0.875rem;">(estimated)</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://twitter.com/little_invaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow us on Twitter">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="https://opensea.io/collection/littleinvaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="View collection on OpenSea">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2026 Little Invaders. All rights reserved.
+            </p>
+            <p class="footer-web3">Built on Web3</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/tools-core.js"></script>
+    <script src="../../assets/js/utils.js"></script>
+    <script src="../../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gasLimit = document.getElementById('gas-limit');
+            const gasPrice = document.getElementById('gas-price');
+            const network = document.getElementById('network');
+            const totalGas = document.getElementById('total-gas');
+            const costEth = document.getElementById('cost-eth');
+            const costUsd = document.getElementById('cost-usd');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedback = document.getElementById('feedback');
+
+            // Estimated ETH prices (placeholder - would normally fetch from API)
+            const ethPrices = {
+                ethereum: 2500,
+                polygon: 0.7,
+                arbitrum: 0.5,
+                optimism: 0.5
+            };
+
+            function showFeedback(message, type) {
+                feedback.className = `tool-feedback ${type} show`;
+                feedback.textContent = message;
+                setTimeout(() => feedback.classList.remove('show'), 3000);
+            }
+
+            calculateBtn.addEventListener('click', function() {
+                const limit = parseFloat(gasLimit.value) || 0;
+                const price = parseFloat(gasPrice.value) || 0;
+
+                if (limit <= 0 || price <= 0) {
+                    showFeedback('Please enter valid gas limit and price', 'error');
+                    return;
+                }
+
+                const totalGasWei = BigInt(Math.floor(limit * price * 1e9));
+                const totalGasGwei = (limit * price).toFixed(2);
+                const totalGasEth = weiToEth(totalGasWei.toString());
+
+                totalGas.textContent = totalGasGwei + ' Gwei';
+                costEth.textContent = totalGasEth + ' ETH';
+
+                const ethPrice = ethPrices[network.value] || 2500;
+                const usdCost = (parseFloat(totalGasEth) * ethPrice).toFixed(2);
+                costUsd.textContent = '$' + usdCost;
+
+                totalGas.classList.remove('tool-output-empty');
+                costEth.classList.remove('tool-output-empty');
+                costUsd.classList.remove('tool-output-empty');
+
+                showFeedback('Gas fee calculated!', 'success');
+            });
+
+            resetBtn.addEventListener('click', function() {
+                resetForm('gas-form');
+                totalGas.textContent = '';
+                costEth.textContent = '';
+                costUsd.textContent = '';
+                totalGas.classList.add('tool-output-empty');
+                costEth.classList.add('tool-output-empty');
+                costUsd.classList.add('tool-output-empty');
+            });
+        });
+    </script>
+</body>
+</html>
+

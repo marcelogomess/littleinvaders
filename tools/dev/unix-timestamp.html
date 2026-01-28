@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Unix timestamp converter. Convert between Unix timestamps and dates online.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="Unix Timestamp Converter – Free Online Tool | Little Invaders">
+    <link rel="canonical" href="https://littleinvaders.com/tools/dev/unix-timestamp.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Unix Timestamp Converter – Free Online Tool | Little Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/tools.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRKPP37EQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRKPP37EQ0');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="../../index.html" class="nav-logo">LITTLE INVADERS</a>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="../../index.html#traits" class="nav-link">Traits</a>
+                <a href="../../index.html#roadmap" class="nav-link">Roadmap</a>
+                <a href="../../index.html#social" class="nav-link">Links</a>
+                <a href="../index.html" class="nav-link">Tools</a>
+                <a href="../../index.html#support" class="nav-link">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tool-page">
+        <div class="tool-header">
+            <h1 class="tool-title">Unix Timestamp Converter</h1>
+            <p class="tool-description">Convert between Unix timestamps and dates</p>
+        </div>
+
+        <div class="tool-main">
+            <div class="tool-container">
+                <form id="timestamp-form" class="tool-form">
+                    <div class="tool-form-group">
+                        <label for="input-type" class="tool-label">Input Type</label>
+                        <select id="input-type" class="tool-select">
+                            <option value="timestamp">Unix Timestamp</option>
+                            <option value="date">Date</option>
+                        </select>
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="input-value" class="tool-label">Input</label>
+                        <input type="text" id="input-value" class="tool-input" placeholder="Enter timestamp or date">
+                    </div>
+
+                    <div class="tool-btn-group">
+                        <button type="button" class="tool-btn" id="convert-btn">Convert</button>
+                        <button type="button" class="tool-btn tool-btn-secondary" id="current-btn">Current Timestamp</button>
+                        <button type="button" class="tool-btn tool-btn-secondary" id="reset-btn">Reset</button>
+                    </div>
+
+                    <div id="feedback" class="tool-feedback"></div>
+
+                    <div class="tool-form-group" style="margin-top: var(--spacing-md);">
+                        <label for="timestamp-output" class="tool-label">
+                            Unix Timestamp
+                            <button type="button" class="tool-copy-btn" data-copy="timestamp-output" title="Copy">📋</button>
+                        </label>
+                        <input type="text" id="timestamp-output" class="tool-input tool-output tool-output-empty" readonly>
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="iso-output" class="tool-label">
+                            ISO Date
+                            <button type="button" class="tool-copy-btn" data-copy="iso-output" title="Copy">📋</button>
+                        </label>
+                        <input type="text" id="iso-output" class="tool-input tool-output tool-output-empty" readonly>
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="readable-output" class="tool-label">
+                            Readable Date
+                            <button type="button" class="tool-copy-btn" data-copy="readable-output" title="Copy">📋</button>
+                        </label>
+                        <input type="text" id="readable-output" class="tool-input tool-output tool-output-empty" readonly>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://twitter.com/little_invaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow us on Twitter">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="https://opensea.io/collection/littleinvaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="View collection on OpenSea">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2026 Little Invaders. All rights reserved.
+            </p>
+            <p class="footer-web3">Built on Web3</p>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/tools-core.js"></script>
+    <script src="../../assets/js/utils.js"></script>
+    <script src="../../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputType = document.getElementById('input-type');
+            const inputValue = document.getElementById('input-value');
+            const timestampOutput = document.getElementById('timestamp-output');
+            const isoOutput = document.getElementById('iso-output');
+            const readableOutput = document.getElementById('readable-output');
+            const convertBtn = document.getElementById('convert-btn');
+            const currentBtn = document.getElementById('current-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedback = document.getElementById('feedback');
+
+            function showFeedback(message, type) {
+                feedback.className = `tool-feedback ${type} show`;
+                feedback.textContent = message;
+                setTimeout(() => feedback.classList.remove('show'), 3000);
+            }
+
+            function updateOutputs(date) {
+                const timestamp = dateToTimestamp(date);
+                timestampOutput.value = timestamp;
+                isoOutput.value = formatDate(date);
+                readableOutput.value = date.toLocaleString();
+                timestampOutput.classList.remove('tool-output-empty');
+                isoOutput.classList.remove('tool-output-empty');
+                readableOutput.classList.remove('tool-output-empty');
+            }
+
+            convertBtn.addEventListener('click', function() {
+                const value = inputValue.value.trim();
+                if (!value) {
+                    showFeedback('Please enter a value', 'error');
+                    return;
+                }
+
+                try {
+                    let date;
+                    if (inputType.value === 'timestamp') {
+                        const ts = parseInt(value);
+                        if (isNaN(ts)) {
+                            throw new Error('Invalid timestamp');
+                        }
+                        date = timestampToDate(ts);
+                    } else {
+                        date = new Date(value);
+                        if (isNaN(date.getTime())) {
+                            throw new Error('Invalid date');
+                        }
+                    }
+                    updateOutputs(date);
+                    showFeedback('Converted successfully!', 'success');
+                } catch (e) {
+                    showFeedback('Error: ' + e.message, 'error');
+                }
+            });
+
+            currentBtn.addEventListener('click', function() {
+                const now = new Date();
+                inputType.value = 'timestamp';
+                inputValue.value = dateToTimestamp(now);
+                updateOutputs(now);
+                showFeedback('Current timestamp loaded!', 'success');
+            });
+
+            resetBtn.addEventListener('click', function() {
+                resetForm('timestamp-form');
+            });
+        });
+    </script>
+</body>
+</html>
