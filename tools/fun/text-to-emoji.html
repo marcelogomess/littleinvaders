@@ -1,11 +1,26 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free text to emoji converter. Convert text to emoji or ASCII art online.">
+    <meta name="description" content="Free text to emoji converter. Convert text to emoji or spaced text online.">
     <meta name="theme-color" content="#000000">
     <meta property="og:title" content="Text to Emoji / ASCII – Free Online Tool | Little Invaders">
+    <meta property="og:description" content="Convert text to emoji or spaced text online">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://littleinvaders.com/tools/fun/text-to-emoji.html">
+    <meta property="og:image" content="https://littleinvaders.com/assets/banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Text to Emoji Tool">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Text to Emoji / ASCII – Free Online Tool | Little Invaders">
+    <meta name="twitter:description" content="Convert text to emoji or spaced text online">
+    <meta name="twitter:image" content="https://littleinvaders.com/assets/banner.png">
+    <meta name="twitter:image:alt" content="Text to Emoji Tool">
+    
     <link rel="canonical" href="https://littleinvaders.com/tools/fun/text-to-emoji.html">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <title>Text to Emoji / ASCII – Free Online Tool | Little Invaders</title>
@@ -42,8 +57,8 @@
 
     <div class="tool-page">
         <div class="tool-header">
-            <h1 class="tool-title">Text to Emoji / ASCII</h1>
-            <p class="tool-description">Convert text to emoji or ASCII art</p>
+            <h1 class="tool-title">Text to Emoji / Spaced Text</h1>
+            <p class="tool-description">Convert text to emoji or spaced text</p>
         </div>
 
         <div class="tool-main">
@@ -53,7 +68,7 @@
                         <label for="mode" class="tool-label">Mode</label>
                         <select id="mode" class="tool-select">
                             <option value="emoji">Emoji</option>
-                            <option value="ascii">ASCII Art</option>
+                            <option value="spaced">Spaced Text</option>
                         </select>
                     </div>
 
@@ -105,6 +120,24 @@
         </div>
     </footer>
 
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Text to Emoji / Spaced Text",
+      "url": "https://littleinvaders.com/tools/fun/text-to-emoji.html",
+      "description": "Free online tool to convert text to emoji or spaced text",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
     <script src="../../assets/js/tools-core.js"></script>
     <script src="../../script.js" defer></script>
     <script>
@@ -116,19 +149,44 @@
             const resetBtn = document.getElementById('reset-btn');
             const feedback = document.getElementById('feedback');
 
-            const emojiMap = { a: '😀', e: '😊', i: '😎', o: '😍', u: '😋' };
+            // Comprehensive emoji mapping
+            const emojiMap = {
+                a: '😀', b: '😃', c: '😄', d: '😁', e: '😊', f: '😋', g: '😎', h: '😍',
+                i: '😘', j: '🥰', k: '😗', l: '😙', m: '😚', n: '☺️', o: '😇', p: '🙂',
+                q: '🙃', r: '😉', s: '😌', t: '😍', u: '🥳', v: '😋', w: '😛', x: '😜',
+                y: '😝', z: '🤪',
+                0: '0️⃣', 1: '1️⃣', 2: '2️⃣', 3: '3️⃣', 4: '4️⃣', 5: '5️⃣', 6: '6️⃣', 7: '7️⃣', 8: '8️⃣', 9: '9️⃣',
+                ' ': '  ', '!': '❗', '?': '❓', '.': '💬', ',': '💭'
+            };
 
             function convertToEmoji(text) {
                 return text.split('').map(char => {
                     const lower = char.toLowerCase();
-                    return emojiMap[lower] || char;
+                    return emojiMap[lower] || emojiMap[char] || char;
                 }).join('');
             }
 
-            function convertToASCII(text) {
+            function convertToSpaced(text) {
                 return text.split('').map(char => {
+                    if (char === ' ') return '   '; // Triple space for actual spaces
                     return char + ' ';
                 }).join('');
+            }
+
+            function convertText() {
+                const text = input.value.trim();
+                if (!text) {
+                    output.value = '';
+                    output.classList.add('tool-output-empty');
+                    return;
+                }
+
+                if (mode.value === 'emoji') {
+                    output.value = convertToEmoji(text);
+                } else {
+                    output.value = convertToSpaced(text);
+                }
+                output.classList.remove('tool-output-empty');
             }
 
             convertBtn.addEventListener('click', function() {
@@ -137,18 +195,24 @@
                     showFeedback('Please enter text', 'error');
                     return;
                 }
-
-                if (mode.value === 'emoji') {
-                    output.value = convertToEmoji(text);
-                } else {
-                    output.value = convertToASCII(text);
-                }
-                output.classList.remove('tool-output-empty');
+                convertText();
                 showFeedback('Text converted!', 'success');
+            });
+
+            // Real-time conversion on input change
+            input.addEventListener('input', function() {
+                convertText();
+            });
+
+            // Update on mode change
+            mode.addEventListener('change', function() {
+                convertText();
             });
 
             resetBtn.addEventListener('click', function() {
                 resetForm('emoji-form');
+                output.value = '';
+                output.classList.add('tool-output-empty');
             });
 
             function showFeedback(message, type) {

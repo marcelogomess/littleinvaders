@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,8 +55,19 @@
                     </div>
 
                     <div class="tool-form-group">
-                        <label for="pixel-size" class="tool-label">Pixel Size: <span id="pixel-size-value">8</span>px</label>
+                        <label for="pixel-size" class="tool-label">Pixelation Level: <span id="pixel-size-value">8</span></label>
                         <input type="range" id="pixel-size" class="tool-slider" min="2" max="32" value="8">
+                        <div style="margin-top: var(--spacing-xs); font-size: 0.875rem; color: var(--text-muted);">
+                            Lower = more pixelated, Higher = less pixelated
+                        </div>
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label for="output-scale" class="tool-label">Output Scale: <span id="output-scale-value">4</span>x</label>
+                        <input type="range" id="output-scale" class="tool-slider" min="1" max="10" value="4">
+                        <div style="margin-top: var(--spacing-xs); font-size: 0.875rem; color: var(--text-muted);">
+                            How large each pixel appears in the output
+                        </div>
                     </div>
 
                     <div class="tool-btn-group">
@@ -68,7 +79,7 @@
                     <div id="feedback" class="tool-feedback"></div>
 
                     <div id="preview-container" style="display: none; margin-top: var(--spacing-md); text-align: center;">
-                        <canvas id="pixel-canvas" style="border: var(--border-pixel) var(--border-color); image-rendering: pixelated; max-width: 100%;"></canvas>
+                        <canvas id="pixel-canvas" style="border: var(--border-pixel) var(--border-color); image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; max-width: 100%;"></canvas>
                     </div>
                 </form>
             </div>
@@ -106,6 +117,8 @@
             const imageInput = document.getElementById('image-input');
             const pixelSize = document.getElementById('pixel-size');
             const pixelSizeValue = document.getElementById('pixel-size-value');
+            const outputScale = document.getElementById('output-scale');
+            const outputScaleValue = document.getElementById('output-scale-value');
             const generateBtn = document.getElementById('generate-btn');
             const downloadBtn = document.getElementById('download-btn');
             const resetBtn = document.getElementById('reset-btn');
@@ -115,6 +128,10 @@
 
             pixelSize.addEventListener('input', function() {
                 pixelSizeValue.textContent = this.value;
+            });
+
+            outputScale.addEventListener('input', function() {
+                outputScaleValue.textContent = this.value;
             });
 
             generateBtn.addEventListener('click', function() {
@@ -128,38 +145,45 @@
                 reader.onload = function(e) {
                     const img = new Image();
                     img.onload = function() {
-                        const size = parseInt(pixelSize.value);
-                        const width = Math.floor(img.width / size) * size;
-                        const height = Math.floor(img.height / size) * size;
-                        const pixelWidth = width / size;
-                        const pixelHeight = height / size;
-
-                        canvas.width = pixelWidth;
-                        canvas.height = pixelHeight;
+                        const pixelationLevel = parseInt(pixelSize.value);
+                        const scale = parseInt(outputScale.value);
+                        
+                        // Calculate the downscaled dimensions (smaller = more pixelated)
+                        const downscaledWidth = Math.max(1, Math.floor(img.width / pixelationLevel));
+                        const downscaledHeight = Math.max(1, Math.floor(img.height / pixelationLevel));
+                        
+                        // Create a small canvas for the pixelated version
+                        const smallCanvas = document.createElement('canvas');
+                        smallCanvas.width = downscaledWidth;
+                        smallCanvas.height = downscaledHeight;
+                        const smallCtx = smallCanvas.getContext('2d');
+                        smallCtx.imageSmoothingEnabled = false;
+                        
+                        // Draw the image scaled down (this creates the pixelation effect)
+                        smallCtx.drawImage(img, 0, 0, downscaledWidth, downscaledHeight);
+                        
+                        // Get the pixel data from the small canvas
+                        const pixelData = smallCtx.getImageData(0, 0, downscaledWidth, downscaledHeight);
+                        
+                        // Create the output canvas (scaled up for visibility)
+                        const outputWidth = downscaledWidth * scale;
+                        const outputHeight = downscaledHeight * scale;
+                        canvas.width = outputWidth;
+                        canvas.height = outputHeight;
                         const ctx = canvas.getContext('2d');
                         ctx.imageSmoothingEnabled = false;
-
-                        const tempCanvas = document.createElement('canvas');
-                        tempCanvas.width = width;
-                        tempCanvas.height = height;
-                        const tempCtx = tempCanvas.getContext('2d');
-                        tempCtx.drawImage(img, 0, 0, width, height);
-
-                        for (let y = 0; y < pixelHeight; y++) {
-                            for (let x = 0; x < pixelWidth; x++) {
-                                const px = x * size;
-                                const py = y * size;
-                                const pixelData = tempCtx.getImageData(px, py, size, size);
-                                let r = 0, g = 0, b = 0, a = 0;
-                                for (let i = 0; i < pixelData.data.length; i += 4) {
-                                    r += pixelData.data[i];
-                                    g += pixelData.data[i + 1];
-                                    b += pixelData.data[i + 2];
-                                    a += pixelData.data[i + 3];
-                                }
-                                const count = pixelData.data.length / 4;
-                                ctx.fillStyle = 'rgba(' + Math.round(r/count) + ', ' + Math.round(g/count) + ', ' + Math.round(b/count) + ', ' + (Math.round(a/count)/255) + ')';
-                                ctx.fillRect(x, y, 1, 1);
+                        
+                        // Draw each pixel from the small canvas as a larger block
+                        for (let y = 0; y < downscaledHeight; y++) {
+                            for (let x = 0; x < downscaledWidth; x++) {
+                                const index = (y * downscaledWidth + x) * 4;
+                                const r = pixelData.data[index];
+                                const g = pixelData.data[index + 1];
+                                const b = pixelData.data[index + 2];
+                                const a = pixelData.data[index + 3];
+                                
+                                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+                                ctx.fillRect(x * scale, y * scale, scale, scale);
                             }
                         }
 

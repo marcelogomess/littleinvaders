@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -67,6 +67,52 @@
                     <div class="tool-form-group">
                         <label for="qrcode-input" class="tool-label">Enter text or URL</label>
                         <input type="text" id="qrcode-input" class="tool-input" placeholder="https://littleinvaders.com or any text...">
+                    </div>
+
+                    <div class="tool-form-group">
+                        <label class="tool-label">QR Code Colors</label>
+                        <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                                <label for="qrcode-color-dark" style="font-size: 1rem; color: var(--text-secondary); min-width: 120px;">Foreground:</label>
+                                <input type="color" id="qrcode-color-dark" value="#00ffff" style="width: 60px; height: 40px; cursor: pointer; border: 2px solid var(--accent-cyan); background: transparent;">
+                                <input type="text" id="qrcode-color-dark-hex" value="#00ffff" class="tool-input" style="width: 100px; font-family: monospace; text-transform: uppercase;" placeholder="#00ffff">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                                <label for="qrcode-color-light" style="font-size: 1rem; color: var(--text-secondary); min-width: 120px;">Background:</label>
+                                <input type="color" id="qrcode-color-light" value="#000000" style="width: 60px; height: 40px; cursor: pointer; border: 2px solid var(--accent-cyan); background: transparent;">
+                                <input type="text" id="qrcode-color-light-hex" value="#000000" class="tool-input" style="width: 100px; font-family: monospace; text-transform: uppercase;" placeholder="#000000">
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--spacing-sm);">
+                            <div style="margin-bottom: var(--spacing-xs); font-size: 0.875rem; color: var(--text-secondary);">Foreground Presets:</div>
+                            <div style="display: flex; gap: var(--spacing-xs); flex-wrap: wrap; margin-bottom: var(--spacing-sm);">
+                                <button type="button" class="qrcode-preset-foreground" data-color="#00ffff" style="background: #00ffff; border: 2px solid #00ffff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Cyan"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#000000" style="background: #000000; border: 2px solid #ffffff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Black"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#00ff00" style="background: #00ff00; border: 2px solid #00ff00; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Green"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#ff00ff" style="background: #ff00ff; border: 2px solid #ff00ff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Magenta"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#8b00ff" style="background: #8b00ff; border: 2px solid #8b00ff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Purple"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#ffffff" style="background: #ffffff; border: 2px solid #000000; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="White"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#ff0000" style="background: #ff0000; border: 2px solid #ff0000; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Red"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#0000ff" style="background: #0000ff; border: 2px solid #0000ff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Blue"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#ffff00" style="background: #ffff00; border: 2px solid #ffff00; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Yellow"></button>
+                                <button type="button" class="qrcode-preset-foreground" data-color="#ff8800" style="background: #ff8800; border: 2px solid #ff8800; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Orange"></button>
+                            </div>
+                            <div style="margin-bottom: var(--spacing-xs); font-size: 0.875rem; color: var(--text-secondary);">Background Presets:</div>
+                            <div style="display: flex; gap: var(--spacing-xs); flex-wrap: wrap;">
+                                <button type="button" class="qrcode-preset-background" data-color="#000000" style="background: #000000; border: 2px solid #ffffff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Black"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#ffffff" style="background: #ffffff; border: 2px solid #000000; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="White"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#1a1a1a" style="background: #1a1a1a; border: 2px solid #ffffff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Dark Gray"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#f5f5f5" style="background: #f5f5f5; border: 2px solid #000000; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Light Gray"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#ff0000" style="background: #ff0000; border: 2px solid #ff0000; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Red"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#00ff00" style="background: #00ff00; border: 2px solid #00ff00; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Green"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#0000ff" style="background: #0000ff; border: 2px solid #0000ff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Blue"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#ffff00" style="background: #ffff00; border: 2px solid #ffff00; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Yellow"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#ff00ff" style="background: #ff00ff; border: 2px solid #ff00ff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Magenta"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#00ffff" style="background: #00ffff; border: 2px solid #00ffff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Cyan"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#ff8800" style="background: #ff8800; border: 2px solid #ff8800; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Orange"></button>
+                                <button type="button" class="qrcode-preset-background" data-color="#8b00ff" style="background: #8b00ff; border: 2px solid #8b00ff; width: 30px; height: 30px; cursor: pointer; border-radius: 4px;" title="Purple"></button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tool-btn-group">
@@ -138,6 +184,12 @@
             const qrcodeImage = document.getElementById('qrcode-image');
             const downloadBtn = document.getElementById('download-btn');
             const feedback = document.getElementById('feedback');
+            const colorDarkPicker = document.getElementById('qrcode-color-dark');
+            const colorDarkHex = document.getElementById('qrcode-color-dark-hex');
+            const colorLightPicker = document.getElementById('qrcode-color-light');
+            const colorLightHex = document.getElementById('qrcode-color-light-hex');
+            const presetForegroundColors = document.querySelectorAll('.qrcode-preset-foreground');
+            const presetBackgroundColors = document.querySelectorAll('.qrcode-preset-background');
             let qrcodeInstance = null;
 
             function showFeedback(message, type) {
@@ -145,6 +197,53 @@
                 feedback.textContent = message;
                 setTimeout(() => feedback.classList.remove('show'), 3000);
             }
+
+            function updateColorHex(input, hexInput) {
+                hexInput.value = input.value.toUpperCase();
+            }
+
+            function updateColorPicker(hexInput, picker) {
+                const hex = hexInput.value.trim();
+                if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+                    picker.value = hex;
+                }
+            }
+
+            // Sync color picker with hex input
+            colorDarkPicker.addEventListener('input', function() {
+                updateColorHex(colorDarkPicker, colorDarkHex);
+            });
+
+            colorLightPicker.addEventListener('input', function() {
+                updateColorHex(colorLightPicker, colorLightHex);
+            });
+
+            // Sync hex input with color picker
+            colorDarkHex.addEventListener('input', function() {
+                updateColorPicker(colorDarkHex, colorDarkPicker);
+            });
+
+            colorLightHex.addEventListener('input', function() {
+                updateColorPicker(colorLightHex, colorLightPicker);
+            });
+
+            // Preset foreground color buttons
+            presetForegroundColors.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const color = this.getAttribute('data-color');
+                    colorDarkPicker.value = color;
+                    colorDarkHex.value = color.toUpperCase();
+                });
+            });
+
+            // Preset background color buttons
+            presetBackgroundColors.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const color = this.getAttribute('data-color');
+                    colorLightPicker.value = color;
+                    colorLightHex.value = color.toUpperCase();
+                });
+            });
 
             generateBtn.addEventListener('click', function() {
                 const text = input.value.trim();
@@ -154,14 +253,28 @@
                     return;
                 }
 
+                // Get colors from inputs
+                let darkColor = colorDarkHex.value.trim();
+                let lightColor = colorLightHex.value.trim();
+
+                // Validate hex colors
+                if (!/^#[0-9A-Fa-f]{6}$/.test(darkColor)) {
+                    darkColor = colorDarkPicker.value;
+                    colorDarkHex.value = darkColor.toUpperCase();
+                }
+                if (!/^#[0-9A-Fa-f]{6}$/.test(lightColor)) {
+                    lightColor = colorLightPicker.value;
+                    colorLightHex.value = lightColor.toUpperCase();
+                }
+
                 qrcodeImage.innerHTML = '';
                 
                 qrcodeInstance = new QRCode(qrcodeImage, {
                     text: text,
                     width: 256,
                     height: 256,
-                    colorDark: "#00ffff",
-                    colorLight: "#000000",
+                    colorDark: darkColor,
+                    colorLight: lightColor,
                     correctLevel: QRCode.CorrectLevel.H
                 });
 
@@ -173,9 +286,13 @@
                 const canvas = qrcodeImage.querySelector('canvas');
                 if (canvas) {
                     canvas.toBlob(function(blob) {
+                        // Generate filename with timestamp
+                        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5); // Format: YYYY-MM-DDTHH-MM-SS
+                        const filename = `qrcode-${timestamp}.png`;
+                        
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement('a');
-                        link.download = 'qrcode.png';
+                        link.download = filename;
                         link.href = url;
                         link.click();
                         URL.revokeObjectURL(url);
@@ -194,6 +311,11 @@
                 resetForm('qrcode-form');
                 resultDiv.style.display = 'none';
                 qrcodeImage.innerHTML = '';
+                // Reset colors to default
+                colorDarkPicker.value = '#00ffff';
+                colorDarkHex.value = '#00FFFF';
+                colorLightPicker.value = '#000000';
+                colorLightHex.value = '#000000';
             });
         });
     </script>

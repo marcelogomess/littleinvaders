@@ -66,6 +66,13 @@
         <div class="tools-hero">
             <h1 class="tools-hero-title">Free Online Tools</h1>
             <p class="tools-hero-subtitle">A collection of useful tools for developers, designers, crypto enthusiasts, and curious minds. If you find them useful and want to support the project, you can do so via the <a href="../index.html#support" class="tools-hero-link">wallets link</a>.</p>
+            
+            <!-- Search Bar -->
+            <div class="tools-search-container">
+                <input type="text" id="tools-search" class="tools-search-input" placeholder="Search tools..." aria-label="Search tools">
+                <span class="tools-search-icon">🔍</span>
+            </div>
+            <div id="search-results-count" class="tools-search-results" style="display: none;"></div>
         </div>
 
         <!-- Tools Categories -->
@@ -208,12 +215,6 @@
                         <p class="tool-card-description">Generate CSS box-shadow code</p>
                         <span class="tool-card-category">Design</span>
                     </a>
-                    <a href="design/ascii-art.html" class="tool-card">
-                        <span class="tool-card-icon">🎨</span>
-                        <h3 class="tool-card-title">ASCII Art Generator</h3>
-                        <p class="tool-card-description">Convert text to ASCII art</p>
-                        <span class="tool-card-category">Design</span>
-                    </a>
                     <a href="design/color-palette.html" class="tool-card">
                         <span class="tool-card-icon">🎨</span>
                         <h3 class="tool-card-title">Color Palette Generator</h3>
@@ -306,12 +307,6 @@
                         <p class="tool-card-description">Generate meme-style text</p>
                         <span class="tool-card-category">Fun</span>
                     </a>
-                    <a href="fun/random-quote.html" class="tool-card">
-                        <span class="tool-card-icon">💭</span>
-                        <h3 class="tool-card-title">Random Quote Generator</h3>
-                        <p class="tool-card-description">Get random inspirational quotes</p>
-                        <span class="tool-card-category">Fun</span>
-                    </a>
                     <a href="fun/glitch-text.html" class="tool-card">
                         <span class="tool-card-icon">✨</span>
                         <h3 class="tool-card-title">Glitch Text Generator</h3>
@@ -382,5 +377,89 @@
     </script>
 
     <script src="../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('tools-search');
+            const searchResults = document.getElementById('search-results-count');
+            const toolCards = document.querySelectorAll('.tool-card');
+            const categorySections = document.querySelectorAll('.category-section');
+            
+            function performSearch(query) {
+                const searchTerm = query.toLowerCase().trim();
+                let visibleCount = 0;
+                let visibleCategories = new Set();
+                
+                if (searchTerm === '') {
+                    // Show all tools and categories
+                    toolCards.forEach(card => {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    });
+                    categorySections.forEach(section => {
+                        section.classList.remove('hidden');
+                    });
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                // Search through tool cards
+                toolCards.forEach(card => {
+                    const title = card.querySelector('.tool-card-title')?.textContent.toLowerCase() || '';
+                    const description = card.querySelector('.tool-card-description')?.textContent.toLowerCase() || '';
+                    const category = card.querySelector('.tool-card-category')?.textContent.toLowerCase() || '';
+                    const icon = card.querySelector('.tool-card-icon')?.textContent || '';
+                    
+                    const matches = title.includes(searchTerm) || 
+                                   description.includes(searchTerm) || 
+                                   category.includes(searchTerm) ||
+                                   icon.includes(searchTerm);
+                    
+                    if (matches) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                        // Find parent category section
+                        const categorySection = card.closest('.category-section');
+                        if (categorySection) {
+                            visibleCategories.add(categorySection);
+                        }
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Show/hide category sections based on visible tools
+                categorySections.forEach(section => {
+                    const visibleTools = section.querySelectorAll('.tool-card:not(.hidden)');
+                    if (visibleTools.length > 0) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                
+                // Update results count
+                if (searchTerm !== '') {
+                    searchResults.textContent = `Found ${visibleCount} tool${visibleCount !== 1 ? 's' : ''}`;
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            }
+            
+            // Add event listener for search input
+            searchInput.addEventListener('input', function(e) {
+                performSearch(e.target.value);
+            });
+            
+            // Clear search on Escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    performSearch('');
+                    searchInput.blur();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,21 +55,25 @@
                     </div>
 
                     <div class="tool-form-group">
-                        <label for="width" class="tool-label">Width (px)</label>
-                        <input type="number" id="width" class="tool-input" placeholder="Auto">
+                        <label for="percentage" class="tool-label">Resize Percentage (%)</label>
+                        <input type="number" id="percentage" class="tool-input" placeholder="100" min="1" max="1000" value="100">
+                        <div style="margin-top: var(--spacing-xs); font-size: 0.875rem; color: var(--text-muted);">
+                            <span id="dimensions-info">Original: -</span>
+                        </div>
                     </div>
 
                     <div class="tool-form-group">
-                        <label for="height" class="tool-label">Height (px)</label>
-                        <input type="number" id="height" class="tool-input" placeholder="Auto">
+                        <label class="tool-label">Quick Presets</label>
+                        <div style="display: flex; gap: var(--spacing-xs); flex-wrap: wrap;">
+                            <button type="button" class="percentage-preset" data-percent="25">25%</button>
+                            <button type="button" class="percentage-preset" data-percent="50">50%</button>
+                            <button type="button" class="percentage-preset" data-percent="75">75%</button>
+                            <button type="button" class="percentage-preset" data-percent="100">100%</button>
+                            <button type="button" class="percentage-preset" data-percent="150">150%</button>
+                            <button type="button" class="percentage-preset" data-percent="200">200%</button>
+                        </div>
                     </div>
 
-                    <div class="tool-form-group">
-                        <label class="tool-checkbox">
-                            <input type="checkbox" id="maintain-aspect">
-                            <span>Maintain aspect ratio</span>
-                        </label>
-                    </div>
 
                     <div class="tool-btn-group">
                         <button type="button" class="tool-btn" id="resize-btn">Resize</button>
@@ -116,18 +120,41 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const imageInput = document.getElementById('image-input');
-            const width = document.getElementById('width');
-            const height = document.getElementById('height');
-            const maintainAspect = document.getElementById('maintain-aspect');
+            const percentage = document.getElementById('percentage');
+            const dimensionsInfo = document.getElementById('dimensions-info');
             const resizeBtn = document.getElementById('resize-btn');
             const downloadBtn = document.getElementById('download-btn');
             const resetBtn = document.getElementById('reset-btn');
             const feedback = document.getElementById('feedback');
             const previewContainer = document.getElementById('preview-container');
             const resizedPreview = document.getElementById('resized-preview');
+            const presetButtons = document.querySelectorAll('.percentage-preset');
             let resizedDataUrl = null;
             let originalWidth = 0;
             let originalHeight = 0;
+
+            function updateDimensionsInfo() {
+                if (originalWidth && originalHeight) {
+                    const percent = parseFloat(percentage.value) || 100;
+                    const newWidth = Math.round(originalWidth * percent / 100);
+                    const newHeight = Math.round(originalHeight * percent / 100);
+                    dimensionsInfo.textContent = `Original: ${originalWidth} × ${originalHeight}px → New: ${newWidth} × ${newHeight}px (${percent}%)`;
+                } else {
+                    dimensionsInfo.textContent = 'Original: -';
+                }
+            }
+
+            // Preset button handlers
+            presetButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const percent = this.getAttribute('data-percent');
+                    percentage.value = percent;
+                    updateDimensionsInfo();
+                });
+            });
+
+            // Update dimensions info when percentage changes
+            percentage.addEventListener('input', updateDimensionsInfo);
 
             imageInput.addEventListener('change', function(e) {
                 const file = e.target.files[0];
@@ -138,8 +165,8 @@
                         img.onload = function() {
                             originalWidth = img.width;
                             originalHeight = img.height;
-                            width.value = img.width;
-                            height.value = img.height;
+                            percentage.value = 100;
+                            updateDimensionsInfo();
                         };
                         img.src = e.target.result;
                     };
@@ -154,25 +181,19 @@
                     return;
                 }
 
-                let targetWidth = parseInt(width.value) || originalWidth;
-                let targetHeight = parseInt(height.value) || originalHeight;
-
-                if (maintainAspect.checked && originalWidth && originalHeight) {
-                    const aspect = originalWidth / originalHeight;
-                    if (width.value && !height.value) {
-                        targetHeight = Math.round(targetWidth / aspect);
-                        height.value = targetHeight;
-                    } else if (height.value && !width.value) {
-                        targetWidth = Math.round(targetHeight * aspect);
-                        width.value = targetWidth;
-                    } else if (width.value && height.value) {
-                        const newAspect = targetWidth / targetHeight;
-                        if (Math.abs(newAspect - aspect) > 0.01) {
-                            targetHeight = Math.round(targetWidth / aspect);
-                            height.value = targetHeight;
-                        }
-                    }
+                const percent = parseFloat(percentage.value);
+                if (!percent || percent <= 0) {
+                    showFeedback('Please enter a valid percentage (1-1000)', 'error');
+                    return;
                 }
+
+                if (!originalWidth || !originalHeight) {
+                    showFeedback('Please wait for image to load', 'error');
+                    return;
+                }
+
+                const targetWidth = Math.round(originalWidth * percent / 100);
+                const targetHeight = Math.round(originalHeight * percent / 100);
 
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -188,7 +209,7 @@
                         resizedPreview.src = resizedDataUrl;
                         previewContainer.style.display = 'block';
                         downloadBtn.style.display = 'inline-block';
-                        showFeedback('Image resized!', 'success');
+                        showFeedback(`Image resized to ${percent}%!`, 'success');
                     };
                     img.src = e.target.result;
                 };
@@ -207,6 +228,10 @@
                 previewContainer.style.display = 'none';
                 downloadBtn.style.display = 'none';
                 resizedDataUrl = null;
+                originalWidth = 0;
+                originalHeight = 0;
+                percentage.value = 100;
+                updateDimensionsInfo();
             });
 
             function showFeedback(message, type) {

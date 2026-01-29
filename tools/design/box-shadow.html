@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -76,8 +76,8 @@
 
                     <div class="tool-form-group">
                         <label class="tool-label">Preview</label>
-                        <div id="shadow-preview" class="tool-preview" style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
-                            <div style="width: 150px; height: 150px; background: var(--accent-cyan);"></div>
+                        <div id="shadow-preview" class="tool-preview" style="min-height: 200px; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.3); padding: var(--spacing-md);">
+                            <div id="preview-box" style="width: 150px; height: 150px; background: #00ffff; border: 2px solid #00ffff;"></div>
                         </div>
                     </div>
 
@@ -148,17 +148,36 @@
 
             function updateShadow() {
                 const shadow = `${offsetX.value}px ${offsetY.value}px ${blur.value}px ${spread.value}px ${shadowColor.value}`;
-                const box = preview.querySelector('div');
-                box.style.boxShadow = shadow;
-                cssOutput.value = `box-shadow: ${shadow};`;
-                cssOutput.classList.remove('tool-output-empty');
+                const box = document.getElementById('preview-box');
+                if (box) {
+                    box.style.boxShadow = shadow;
+                    cssOutput.value = `box-shadow: ${shadow};`;
+                    cssOutput.classList.remove('tool-output-empty');
+                }
             }
 
-            [offsetX, offsetY, blur, spread, shadowColor].forEach(el => {
-                el.addEventListener('input', function() {
-                    updateValues();
-                    updateShadow();
-                });
+            offsetX.addEventListener('input', function() {
+                updateValues();
+                updateShadow();
+            });
+
+            offsetY.addEventListener('input', function() {
+                updateValues();
+                updateShadow();
+            });
+
+            blur.addEventListener('input', function() {
+                updateValues();
+                updateShadow();
+            });
+
+            spread.addEventListener('input', function() {
+                updateValues();
+                updateShadow();
+            });
+
+            shadowColor.addEventListener('input', function() {
+                updateShadow();
             });
 
             updateBtn.addEventListener('click', function() {
@@ -175,6 +194,7 @@
                 shadowColor.value = '#000000';
                 updateValues();
                 updateShadow();
+                showFeedback('Reset to defaults', 'info');
             });
 
             function showFeedback(message, type) {

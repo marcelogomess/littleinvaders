@@ -227,6 +227,25 @@
     color: var(--bg-primary);
 }
 
+/* Percentage Preset Buttons */
+.percentage-preset {
+    background: rgba(0, 255, 255, 0.1);
+    border: var(--border-pixel) var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.875rem;
+    font-family: var(--font-pixel);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    text-transform: uppercase;
+}
+
+.percentage-preset:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    transform: scale(1.05);
+}
+
 /* Feedback Messages */
 .tool-feedback {
     padding: var(--spacing-sm);
@@ -299,6 +318,59 @@
     color: var(--accent-green);
     border-bottom-color: var(--accent-green);
     text-shadow: 0 0 10px var(--accent-green);
+}
+
+.tools-search-container {
+    position: relative;
+    max-width: 600px;
+    margin: var(--spacing-md) auto 0;
+}
+
+.tools-search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 3rem;
+    font-size: 1.25rem;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: rgba(0, 255, 255, 0.1);
+    border: var(--border-pixel) var(--border-color);
+    border-radius: 0;
+    outline: none;
+    transition: var(--transition-normal);
+}
+
+.tools-search-input:focus {
+    background: rgba(0, 255, 255, 0.15);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.tools-search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.tools-search-icon {
+    position: absolute;
+    left: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+    pointer-events: none;
+}
+
+.tools-search-results {
+    margin-top: var(--spacing-sm);
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.tool-card.hidden {
+    display: none;
+}
+
+.category-section.hidden {
+    display: none;
 }
 
 .tools-categories {
@@ -469,6 +541,19 @@
     
     .tools-hero-subtitle {
         font-size: 1.5rem;
+    }
+    
+    .tools-search-container {
+        margin: var(--spacing-sm) var(--spacing-md) 0;
+    }
+    
+    .tools-search-input {
+        font-size: 1rem;
+        padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) 2.5rem;
+    }
+    
+    .tools-search-icon {
+        font-size: 1rem;
     }
     
     .tools-grid {
