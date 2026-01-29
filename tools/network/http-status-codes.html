@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and search HTTP status codes with descriptions. Complete reference for 1xx, 2xx, 3xx, 4xx, and 5xx status codes.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="HTTP Status Code Explorer – Free Network Tool | Little Invaders">
+    <meta property="og:description" content="Browse and search HTTP status codes with descriptions">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://littleinvaders.com/tools/network/http-status-codes.html">
+    <meta property="og:image" content="https://littleinvaders.com/assets/banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="HTTP Status Code Explorer Tool">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HTTP Status Code Explorer – Free Network Tool | Little Invaders">
+    <meta name="twitter:description" content="Browse and search HTTP status codes with descriptions">
+    <meta name="twitter:image" content="https://littleinvaders.com/assets/banner.png">
+    <meta name="twitter:image:alt" content="HTTP Status Code Explorer Tool">
+    
+    <link rel="canonical" href="https://littleinvaders.com/tools/network/http-status-codes.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>HTTP Status Code Explorer – Free Network Tool | Little Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/tools.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRKPP37EQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRKPP37EQ0');
+    </script>
+    <style>
+        .status-code-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: var(--border-pixel) var(--border-color);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            border-radius: 4px;
+            transition: var(--transition-normal);
+        }
+        .status-code-card:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--accent-cyan);
+        }
+        .status-code-card.highlighted {
+            background: rgba(0, 255, 255, 0.15);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        .status-code-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            font-family: var(--font-pixel);
+            margin-bottom: var(--spacing-xs);
+        }
+        .status-code-name {
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        .status-code-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .category-section {
+            margin-bottom: var(--spacing-lg);
+        }
+        .category-title {
+            font-family: var(--font-pixel);
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .search-highlight {
+            background: rgba(255, 255, 0, 0.3);
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="../../index.html" class="nav-logo">LITTLE INVADERS</a>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="../../index.html#traits" class="nav-link">Traits</a>
+                <a href="../../index.html#roadmap" class="nav-link">Roadmap</a>
+                <a href="../../index.html#social" class="nav-link">Links</a>
+                <a href="../index.html" class="nav-link">Tools</a>
+                <a href="../../index.html#support" class="nav-link">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tool-page">
+        <div class="tool-header">
+            <h1 class="tool-title">HTTP Status Code Explorer</h1>
+            <p class="tool-description">Browse and search HTTP status codes with descriptions</p>
+        </div>
+
+        <div class="tool-main">
+            <div class="tool-container">
+                <div class="tool-form">
+                    <div class="tool-form-group">
+                        <label for="search-input" class="tool-label">Search</label>
+                        <input type="text" id="search-input" class="tool-input" placeholder="Search by code (e.g., 404) or keyword (e.g., not found)">
+                    </div>
+
+                    <div id="results-count" style="margin-bottom: var(--spacing-md); color: var(--text-secondary); font-size: 0.875rem;"></div>
+
+                    <div id="status-codes-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://twitter.com/little_invaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow us on Twitter">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="https://opensea.io/collection/littleinvaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="View collection on OpenSea">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2026 Little Invaders. All rights reserved.
+            </p>
+            <p class="footer-web3">Built on Web3</p>
+        </div>
+    </footer>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HTTP Status Code Explorer",
+      "url": "https://littleinvaders.com/tools/network/http-status-codes.html",
+      "description": "Free online tool to browse and search HTTP status codes with descriptions",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <script src="../../assets/js/tools-core.js"></script>
+    <script src="../../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const resultsCount = document.getElementById('results-count');
+            const container = document.getElementById('status-codes-container');
+
+            // HTTP Status Codes Dataset
+            const statusCodes = [
+                // 1xx Informational
+                { code: 100, name: 'Continue', description: 'The server has received the request headers and the client should proceed to send the request body.', category: '1xx' },
+                { code: 101, name: 'Switching Protocols', description: 'The requester has asked the server to switch protocols and the server has agreed.', category: '1xx' },
+                { code: 102, name: 'Processing', description: 'The server has received and is processing the request, but no response is available yet.', category: '1xx' },
+                { code: 103, name: 'Early Hints', description: 'Used to return some response headers before final HTTP message.', category: '1xx' },
+                
+                // 2xx Success
+                { code: 200, name: 'OK', description: 'The request has succeeded.', category: '2xx' },
+                { code: 201, name: 'Created', description: 'The request has been fulfilled and resulted in a new resource being created.', category: '2xx' },
+                { code: 202, name: 'Accepted', description: 'The request has been accepted for processing, but the processing has not been completed.', category: '2xx' },
+                { code: 204, name: 'No Content', description: 'The server successfully processed the request but is not returning any content.', category: '2xx' },
+                { code: 206, name: 'Partial Content', description: 'The server is delivering only part of the resource due to a range header sent by the client.', category: '2xx' },
+                
+                // 3xx Redirection
+                { code: 301, name: 'Moved Permanently', description: 'The URL of the requested resource has been changed permanently.', category: '3xx' },
+                { code: 302, name: 'Found', description: 'The URL of the requested resource has been changed temporarily.', category: '3xx' },
+                { code: 304, name: 'Not Modified', description: 'Indicates that the resource has not been modified since the version specified by the request headers.', category: '3xx' },
+                { code: 307, name: 'Temporary Redirect', description: 'The request should be repeated with another URL, but future requests should still use the original URL.', category: '3xx' },
+                { code: 308, name: 'Permanent Redirect', description: 'The request and all future requests should be repeated using another URL.', category: '3xx' },
+                
+                // 4xx Client Error
+                { code: 400, name: 'Bad Request', description: 'The server cannot or will not process the request due to an apparent client error.', category: '4xx' },
+                { code: 401, name: 'Unauthorized', description: 'Authentication is required and has failed or has not yet been provided.', category: '4xx' },
+                { code: 403, name: 'Forbidden', description: 'The request was valid, but the server is refusing action.', category: '4xx' },
+                { code: 404, name: 'Not Found', description: 'The requested resource could not be found but may be available in the future.', category: '4xx' },
+                { code: 405, name: 'Method Not Allowed', description: 'A request method is not supported for the requested resource.', category: '4xx' },
+                { code: 408, name: 'Request Timeout', description: 'The server timed out waiting for the request.', category: '4xx' },
+                { code: 409, name: 'Conflict', description: 'The request could not be processed because of conflict in the request.', category: '4xx' },
+                { code: 410, name: 'Gone', description: 'The resource requested is no longer available and will not be available again.', category: '4xx' },
+                { code: 413, name: 'Payload Too Large', description: 'The request is larger than the server is willing or able to process.', category: '4xx' },
+                { code: 414, name: 'URI Too Long', description: 'The URI provided was too long for the server to process.', category: '4xx' },
+                { code: 415, name: 'Unsupported Media Type', description: 'The request entity has a media type which the server or resource does not support.', category: '4xx' },
+                { code: 429, name: 'Too Many Requests', description: 'The user has sent too many requests in a given amount of time.', category: '4xx' },
+                { code: 431, name: 'Request Header Fields Too Large', description: 'The server is unwilling to process the request because its header fields are too large.', category: '4xx' },
+                
+                // 5xx Server Error
+                { code: 500, name: 'Internal Server Error', description: 'A generic error message when an unexpected condition was encountered.', category: '5xx' },
+                { code: 501, name: 'Not Implemented', description: 'The server does not support the functionality required to fulfill the request.', category: '5xx' },
+                { code: 502, name: 'Bad Gateway', description: 'The server, while acting as a gateway or proxy, received an invalid response from the upstream server.', category: '5xx' },
+                { code: 503, name: 'Service Unavailable', description: 'The server is currently unable to handle the request due to temporary overload or maintenance.', category: '5xx' },
+                { code: 504, name: 'Gateway Timeout', description: 'The server, while acting as a gateway or proxy, did not receive a timely response from the upstream server.', category: '5xx' },
+                { code: 505, name: 'HTTP Version Not Supported', description: 'The server does not support the HTTP protocol version used in the request.', category: '5xx' }
+            ];
+
+            const categories = {
+                '1xx': 'Informational',
+                '2xx': 'Success',
+                '3xx': 'Redirection',
+                '4xx': 'Client Error',
+                '5xx': 'Server Error'
+            };
+
+            function highlightText(text, searchTerm) {
+                if (!searchTerm) return text;
+                const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                return text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+
+            function filterStatusCodes(searchTerm) {
+                if (!searchTerm) return statusCodes;
+                
+                const term = searchTerm.toLowerCase();
+                return statusCodes.filter(code => {
+                    return code.code.toString().includes(term) ||
+                           code.name.toLowerCase().includes(term) ||
+                           code.description.toLowerCase().includes(term);
+                });
+            }
+
+            function renderStatusCodes(filteredCodes, searchTerm) {
+                container.innerHTML = '';
+                
+                if (filteredCodes.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: var(--spacing-lg);">No status codes found matching your search.</p>';
+                    resultsCount.textContent = '0 results';
+                    return;
+                }
+
+                resultsCount.textContent = `${filteredCodes.length} result${filteredCodes.length !== 1 ? 's' : ''}`;
+
+                // Group by category
+                const grouped = {};
+                filteredCodes.forEach(code => {
+                    if (!grouped[code.category]) {
+                        grouped[code.category] = [];
+                    }
+                    grouped[code.category].push(code);
+                });
+
+                // Render each category
+                Object.keys(categories).forEach(cat => {
+                    if (!grouped[cat]) return;
+
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category-section';
+                    
+                    const title = document.createElement('h2');
+                    title.className = 'category-title';
+                    title.textContent = `${cat} ${categories[cat]}`;
+                    categoryDiv.appendChild(title);
+
+                    grouped[cat].forEach(code => {
+                        const card = document.createElement('div');
+                        card.className = 'status-code-card';
+                        
+                        const number = document.createElement('div');
+                        number.className = 'status-code-number';
+                        number.innerHTML = highlightText(code.code.toString(), searchTerm);
+                        
+                        const name = document.createElement('div');
+                        name.className = 'status-code-name';
+                        name.innerHTML = highlightText(code.name, searchTerm);
+                        
+                        const description = document.createElement('div');
+                        description.className = 'status-code-description';
+                        description.innerHTML = highlightText(code.description, searchTerm);
+                        
+                        card.appendChild(number);
+                        card.appendChild(name);
+                        card.appendChild(description);
+                        categoryDiv.appendChild(card);
+                    });
+
+                    container.appendChild(categoryDiv);
+                });
+            }
+
+            // Initial render
+            renderStatusCodes(statusCodes, '');
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim();
+                const filtered = filterStatusCodes(searchTerm);
+                renderStatusCodes(filtered, searchTerm);
+            });
+        });
+    </script>
+</body>
+</html>

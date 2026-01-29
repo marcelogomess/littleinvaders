@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View browser-available network and environment information. Online status, connection type, user agent, and more.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="My Network Info – Free Network Tool | Little Invaders">
+    <meta property="og:description" content="View browser-available network and environment information">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://littleinvaders.com/tools/network/my-network-info.html">
+    <meta property="og:image" content="https://littleinvaders.com/assets/banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="My Network Info Tool">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="My Network Info – Free Network Tool | Little Invaders">
+    <meta name="twitter:description" content="View browser-available network and environment information">
+    <meta name="twitter:image" content="https://littleinvaders.com/assets/banner.png">
+    <meta name="twitter:image:alt" content="My Network Info Tool">
+    
+    <link rel="canonical" href="https://littleinvaders.com/tools/network/my-network-info.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>My Network Info – Free Network Tool | Little Invaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/tools.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRKPP37EQ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRKPP37EQ0');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="../../index.html" class="nav-logo">LITTLE INVADERS</a>
+            <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="../../index.html#traits" class="nav-link">Traits</a>
+                <a href="../../index.html#roadmap" class="nav-link">Roadmap</a>
+                <a href="../../index.html#social" class="nav-link">Links</a>
+                <a href="../index.html" class="nav-link">Tools</a>
+                <a href="../../index.html#support" class="nav-link">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tool-page">
+        <div class="tool-header">
+            <h1 class="tool-title">My Network Info</h1>
+            <p class="tool-description">View browser-available network and environment information</p>
+        </div>
+
+        <div class="tool-main">
+            <div class="tool-container">
+                <div class="tool-form">
+                    <div style="background: rgba(255, 0, 0, 0.1); border: var(--border-pixel) var(--accent-red); padding: var(--spacing-md); margin-bottom: var(--spacing-md); border-radius: 4px;">
+                        <p style="color: var(--text-secondary); margin: 0; font-size: 0.875rem;">
+                            <strong>Note:</strong> Public IP addresses cannot be accessed without a server or external service. This tool only displays information available to the browser.
+                        </p>
+                    </div>
+
+                    <div id="network-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-md);">
+                        <!-- Network Status -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Online Status</label>
+                            <div id="online-status" style="font-size: 1.25rem; color: var(--accent-green); font-weight: bold;"></div>
+                        </div>
+
+                        <!-- Connection Type -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Connection Type</label>
+                            <div id="connection-type" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Downlink Speed -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Effective Downlink</label>
+                            <div id="downlink" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- RTT -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">RTT (Latency)</label>
+                            <div id="rtt" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Data Saver -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Data Saver</label>
+                            <div id="data-saver" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Browser -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Browser</label>
+                            <div id="browser-name" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Platform -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Platform / OS</label>
+                            <div id="platform" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Language -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Language</label>
+                            <div id="language" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Timezone -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Timezone</label>
+                            <div id="timezone" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+
+                        <!-- Screen Resolution -->
+                        <div class="tool-form-group" style="background: rgba(0, 255, 255, 0.05); border: var(--border-pixel) var(--border-color); padding: var(--spacing-md); border-radius: 4px;">
+                            <label class="tool-label">Screen Resolution</label>
+                            <div id="screen-resolution" style="font-size: 1rem; color: var(--text-secondary);"></div>
+                        </div>
+                    </div>
+
+                    <!-- User Agent -->
+                    <div class="tool-form-group" style="margin-top: var(--spacing-md);">
+                        <label for="user-agent" class="tool-label">
+                            User-Agent
+                            <button type="button" class="tool-copy-btn" data-copy="user-agent" title="Copy">📋</button>
+                        </label>
+                        <textarea id="user-agent" class="tool-textarea tool-output" readonly style="font-size: 0.75rem; font-family: monospace;"></textarea>
+                    </div>
+
+                    <div class="tool-btn-group">
+                        <button type="button" class="tool-btn" id="refresh-btn">Refresh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://twitter.com/little_invaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Follow us on Twitter">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="https://opensea.io/collection/littleinvaders" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="View collection on OpenSea">
+                    <svg class="footer-social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2026 Little Invaders. All rights reserved.
+            </p>
+            <p class="footer-web3">Built on Web3</p>
+        </div>
+    </footer>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "My Network Info",
+      "url": "https://littleinvaders.com/tools/network/my-network-info.html",
+      "description": "Free online tool to view browser-available network and environment information",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <script src="../../assets/js/tools-core.js"></script>
+    <script src="../../script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const onlineStatus = document.getElementById('online-status');
+            const connectionType = document.getElementById('connection-type');
+            const downlink = document.getElementById('downlink');
+            const rtt = document.getElementById('rtt');
+            const dataSaver = document.getElementById('data-saver');
+            const browserName = document.getElementById('browser-name');
+            const platform = document.getElementById('platform');
+            const language = document.getElementById('language');
+            const timezone = document.getElementById('timezone');
+            const screenResolution = document.getElementById('screen-resolution');
+            const userAgent = document.getElementById('user-agent');
+            const refreshBtn = document.getElementById('refresh-btn');
+
+            function parseBrowser(ua) {
+                if (ua.includes('Firefox')) return 'Firefox';
+                if (ua.includes('Chrome') && !ua.includes('Edg')) return 'Chrome';
+                if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+                if (ua.includes('Edg')) return 'Edge';
+                if (ua.includes('Opera') || ua.includes('OPR')) return 'Opera';
+                return 'Unknown';
+            }
+
+            function updateNetworkInfo() {
+                // Online Status
+                const isOnline = navigator.onLine;
+                onlineStatus.textContent = isOnline ? '🟢 Online' : '🔴 Offline';
+                onlineStatus.style.color = isOnline ? 'var(--accent-green)' : 'var(--accent-red)';
+
+                // Network Information API
+                const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                
+                if (conn) {
+                    connectionType.textContent = conn.effectiveType || 'Not available';
+                    downlink.textContent = conn.downlink ? `${conn.downlink} Mbps` : 'Not available';
+                    rtt.textContent = conn.rtt ? `${conn.rtt} ms` : 'Not available';
+                    dataSaver.textContent = conn.saveData ? 'Enabled' : 'Disabled';
+                } else {
+                    connectionType.textContent = 'Not available';
+                    downlink.textContent = 'Not available';
+                    rtt.textContent = 'Not available';
+                    dataSaver.textContent = 'Not available';
+                }
+
+                // Browser
+                browserName.textContent = parseBrowser(navigator.userAgent);
+
+                // Platform
+                platform.textContent = navigator.platform || 'Not available';
+
+                // Language
+                language.textContent = navigator.language || 'Not available';
+
+                // Timezone
+                try {
+                    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    timezone.textContent = tz || 'Not available';
+                } catch (e) {
+                    timezone.textContent = 'Not available';
+                }
+
+                // Screen Resolution
+                screenResolution.textContent = `${screen.width} × ${screen.height}`;
+
+                // User Agent
+                userAgent.value = navigator.userAgent;
+            }
+
+            // Initial update
+            updateNetworkInfo();
+
+            // Listen for online/offline events
+            window.addEventListener('online', updateNetworkInfo);
+            window.addEventListener('offline', updateNetworkInfo);
+
+            // Listen for connection changes
+            const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            if (conn) {
+                conn.addEventListener('change', updateNetworkInfo);
+            }
+
+            // Refresh button
+            refreshBtn.addEventListener('click', updateNetworkInfo);
+        });
+    </script>
+</body>
+</html>
