@@ -1,5 +1,14 @@
 User-agent: *
 Allow: /
-Disallow: /assets/
+
+# Allow social media bots to access images for previews
+User-agent: Twitterbot
+Allow: /assets/
+
+User-agent: facebookexternalhit
+Allow: /assets/
+
+User-agent: LinkedInBot
+Allow: /assets/
 
 Sitemap: https://littleinvaders.com/sitemap.xml
