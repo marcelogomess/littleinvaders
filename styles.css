@@ -679,6 +679,54 @@ body {
 }
 
 /* ============================================
+   Tools Preview Section
+   ============================================ */
+.tools-preview {
+    border-top: var(--border-pixel) var(--border-color);
+}
+
+.tools-preview-intro {
+    font-size: 1.625rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.8;
+}
+
+.tools-categories-list {
+    list-style: none;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+}
+
+.tools-categories-list li {
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.tools-categories-list li:last-child {
+    border-bottom: none;
+}
+
+.tools-categories-list strong {
+    color: var(--accent-cyan);
+    font-family: var(--font-pixel);
+    font-size: 0.75rem;
+}
+
+.tools-preview-cta {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.tools-preview .section-content {
+    text-align: center;
+}
+
+/* ============================================
    Social Section
    ============================================ */
 .social-links {
@@ -1282,6 +1330,14 @@ body {
         font-size: 1.375rem;
     }
     
+    .tools-preview-intro {
+        font-size: 1.375rem;
+    }
+    
+    .tools-categories-list {
+        font-size: 1.125rem;
+    }
+    
     .traits-grid {
         grid-template-columns: 1fr;
     }
@@ -1410,6 +1466,14 @@ body {
     .about-text,
     .traits-intro {
         font-size: 1.25rem;
+    }
+    
+    .tools-preview-intro {
+        font-size: 1.25rem;
+    }
+    
+    .tools-categories-list {
+        font-size: 1rem;
     }
     
     .phase-title {
